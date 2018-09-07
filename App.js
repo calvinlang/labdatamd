@@ -27,6 +27,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    let goBack = this.state.canGoBack ? 'Back' : '';
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
@@ -35,12 +36,13 @@ export default class App extends React.Component {
               disabled={!this.state.canGoBack}
               onPress={this.onBack.bind(this)}
               >
-              <Text style={this.state.canGoBack ? styles.topbarText : styles.topbarTextDisabled}>Go Back</Text>
+              <Text style={this.state.canGoBack ? styles.topbarText : styles.topbarTextDisabled}>{goBack}</Text>
             </TouchableOpacity>
           </View>
           <WebView
             ref={WEBVIEW_REF}
             style={{flex: 1}}
+            bounces={false}
             onNavigationStateChange=
               {this.onNavigationStateChange.bind(this)}
             source={{uri: 'https://www.labdatamd.com'}}
@@ -58,11 +60,12 @@ function changeScreenOrientation() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15, /* Padding to push below the navigation bar */
+    paddingTop: 0, /* Padding to push below the navigation bar */
     backgroundColor: '#2767C3',
+    marginBottom: -5,
   },
   topbar: {
-    height: 30,
+    height: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
